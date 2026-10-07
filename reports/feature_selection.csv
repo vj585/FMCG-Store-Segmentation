@@ -1,0 +1,11 @@
+Feature,Reason,Status
+SPEND_sum_sum,Independent Info,Kept
+SPEND_sum_mean,Independent Info,Kept
+SPEND_sum_std,Independent Info,Kept
+TXN_count_sum,Highly Correlated (>0.95),Removed
+QUANTITY_sum_sum,Highly Correlated (>0.95),Removed
+BASKET_nunique_sum,Independent Info,Kept
+CUST_nunique_sum,Highly Correlated (>0.95),Removed
+PROD_nunique_sum,Highly Correlated (>0.95),Removed
+WEEK_nunique_sum,Independent Info,Kept
+SPEND_cv,Independent Info,Kept

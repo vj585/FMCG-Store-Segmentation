@@ -1,0 +1,2 @@
+Selected Algorithm,Selected k,Silhouette,Davies-Bouldin,Calinski-Harabasz,Minimum Cluster Size,Maximum Cluster Size,Largest Cluster %,Stability (Mean ARI)
+K-Means,3,0.48572542511944883,0.6703003961142043,434.27732893302715,10,424,55.7161629434954,0.7853359169425298
