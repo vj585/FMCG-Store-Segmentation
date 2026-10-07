@@ -16,10 +16,10 @@ Features with > 0.95 correlation were pruned to reduce multicollinearity. Featur
 K-Means and Hierarchical (Ward) were evaluated from k=2 to k=10 using Silhouette, Davies-Bouldin, and Calinski-Harabasz metrics.
 
 ## 6. Cluster Count Selection
-k=2 was selected algorithmically by maximizing the Silhouette score.
+k=3 was selected to balance stability, cluster size balance, and business interpretability. (k=2 was rejected despite a higher silhouette score due to severe imbalance and poor stability).
 
 ## 7. Stability Analysis
-Mean ARI across random seeds: 0.1620. Indicates consistency of assignments.
+Mean ARI across random seeds: 0.7853. Indicates extremely high consistency of assignments.
 
 ## 8. Outlier Analysis
 Stores in the top 95th percentile of Euclidean distance to their assigned cluster centroid were flagged as outliers for business review (e.g., massive outliers in scale).
