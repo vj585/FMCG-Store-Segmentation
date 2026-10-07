@@ -163,6 +163,8 @@ Assessment-2-Store-Segmentation/
 │   ├── cluster_profiles.csv
 │   ├── segment_recommendations.csv
 │   └── store_segments.csv
+├── presentation/
+│   └── FMCG_Store_Segmentation_FreshBasket_12_Slides.pptx
 ├── reports/
 │   ├── cleaning_report.md
 │   ├── FINAL_REPORT.md
