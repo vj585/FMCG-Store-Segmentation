@@ -16,13 +16,19 @@ Features with > 0.95 correlation were pruned to reduce multicollinearity. Featur
 K-Means and Hierarchical (Ward) were evaluated from k=2 to k=10 using Silhouette, Davies-Bouldin, and Calinski-Harabasz metrics.
 
 ## 6. Cluster Count Selection
-k=3 was selected to balance stability, cluster size balance, and business interpretability. (k=2 was rejected despite a higher silhouette score due to severe imbalance and poor stability).
+Silhouette score identified k=2 as the strongest candidate on separation alone, with a score of 0.7213. However, k=2 produced a severely imbalanced segmentation (751 vs 10 stores) and poor stability (mean ARI = 0.1620). Therefore, k=2 was rejected.
+
+The final k=3 solution was selected because it provided a better overall balance of cluster stability, cluster-size balance, separation, and business interpretability. The final k=3 solution achieved a silhouette score of 0.4857 and mean ARI of 0.7853.
 
 ## 7. Stability Analysis
-Mean ARI across random seeds: 0.7853. Indicates extremely high consistency of assignments.
+Stability was evaluated using Adjusted Rand Index (ARI) across multiple random seeds.
+
+The rejected k=2 solution had a mean ARI of 0.1620, indicating poor consistency of cluster assignments across runs.
+
+The final k=3 solution achieved a mean ARI of 0.7853, indicating high consistency of assignments and supporting the stability of the selected segmentation.
 
 ## 8. Outlier Analysis
-Stores in the top 95th percentile of Euclidean distance to their assigned cluster centroid were flagged as outliers for business review (e.g., massive outliers in scale).
+Stores in the top 5% (95th percentile) of Euclidean distance to their assigned cluster centroid were flagged as outliers for business review. A total of 38 stores were identified. These stores represent atypical store profiles relative to their assigned cluster and are not automatically poor-performing stores.
 
 ## 9. Business Interpretation
 See `segment_recommendations.csv`. Labels were assigned strictly empirically using z-scores relative to global means.
