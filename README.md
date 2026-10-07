@@ -1,5 +1,8 @@
 # FMCG Retail Store Segmentation
 
+> **🎥 [Watch the Project Presentation Video](https://drive.google.com/file/d/1Mk5WfW7ulkKA0T2zwCWkCMJ0xDVNd2-_/view?usp=sharing)**
+
+
 ## FreshBasket Consumer Products
 
 FreshBasket operates a large network of retail stores. Historically, stores were classified purely by geographic region or static channel formats. However, this static approach fails to capture the true behavioral nuances of store performance, leading to inefficient "one-size-fits-all" commercial strategies. 
