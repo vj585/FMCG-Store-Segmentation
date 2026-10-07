@@ -1,0 +1,69 @@
+Feature_Variant,Preprocessing,Algorithm,k,Silhouette,DB,CH,Mean_ARI,Min_ARI,Min_Cluster,Max_Cluster,Largest_%,Cluster_Distribution,Interpretability
+A_Baseline,Log1p+StandardScaler,kmeans,2,0.4637,0.8618,467.2782,1.0,1.0,334,427,56.11,427 / 334,Acceptable
+A_Baseline,Log1p+StandardScaler,ward,2,0.4536,0.8784,425.8211,1.0,1.0,359,402,52.83,359 / 402,Acceptable
+A_Baseline,Log1p+StandardScaler,kmeans,3,0.4906,0.9277,466.8022,0.9959,0.9897,15,425,55.85,425 / 321 / 15,Acceptable
+A_Baseline,Log1p+StandardScaler,ward,3,0.4738,0.9154,438.7128,1.0,1.0,13,402,52.83,13 / 402 / 346,Acceptable
+A_Baseline,Log1p+StandardScaler,kmeans,4,0.4962,0.613,521.3587,0.9846,0.9743,3,424,55.72,10 / 424 / 324 / 3,Acceptable
+A_Baseline,Log1p+StandardScaler,ward,4,0.4803,0.6094,490.9482,1.0,1.0,3,402,52.83,402 / 3 / 346 / 10,Acceptable
+A_Baseline,Log1p+StandardScaler,kmeans,5,0.475,0.6319,648.3651,0.9957,0.9904,3,343,45.07,84 / 343 / 10 / 321 / 3,Acceptable
+A_Baseline,Log1p+StandardScaler,ward,5,0.4208,0.7201,594.5158,1.0,1.0,3,346,45.47,158 / 3 / 346 / 10 / 244,Acceptable
+A_Baseline,Log1p+StandardScaler,kmeans,6,0.412,0.6753,700.9676,0.9728,0.9373,3,266,34.95,266 / 80 / 10 / 166 / 3 / 236,Acceptable
+A_Baseline,Log1p+StandardScaler,ward,6,0.4398,0.7887,594.6632,1.0,1.0,3,346,45.47,346 / 3 / 136 / 10 / 244 / 22,Acceptable
+A_Baseline,Log1p+StandardScaler,kmeans,7,0.4257,0.7215,715.6788,0.9986,0.993,3,262,34.43,166 / 74 / 262 / 10 / 18 / 228 / 3,Acceptable
+A_Baseline,Log1p+StandardScaler,ward,7,0.3751,0.8002,637.2305,1.0,1.0,3,244,32.06,136 / 3 / 174 / 10 / 244 / 22 / 172,Acceptable
+A_Baseline,Log1p+StandardScaler,kmeans,8,0.4046,0.7422,742.0023,0.9847,0.9742,3,216,28.38,10 / 173 / 126 / 66 / 3 / 149 / 18 / 216,Acceptable
+A_Baseline,Log1p+StandardScaler,ward,8,0.3687,0.76,663.0494,1.0,1.0,3,244,32.06,3 / 10 / 174 / 103 / 244 / 22 / 172 / 33,Acceptable
+A_Baseline,Log1p+StandardScaler,gmm,2,0.5801,1.556,120.5477,1.0,1.0,42,719,94.48,42 / 719,Imbalanced
+A_Baseline,Log1p+StandardScaler,gmm,3,0.478,1.3565,356.2037,0.5401,0.2336,40,471,61.89,471 / 250 / 40,Acceptable
+A_Baseline,Log1p+StandardScaler,gmm,4,0.4474,1.2361,369.0113,0.7916,0.52,35,348,45.73,35 / 96 / 282 / 348,Acceptable
+A_Baseline,Log1p+StandardScaler,gmm,5,0.4524,1.0784,441.3932,0.9939,0.9693,3,348,45.73,348 / 95 / 282 / 33 / 3,Acceptable
+B_Ratio,Log1p+StandardScaler,kmeans,2,0.3888,1.0692,421.7534,0.9832,0.9581,272,489,64.26,489 / 272,Acceptable
+B_Ratio,Log1p+StandardScaler,ward,2,0.3604,1.1506,378.7579,1.0,1.0,320,441,57.95,441 / 320,Acceptable
+B_Ratio,Log1p+StandardScaler,kmeans,3,0.4074,0.8567,361.9814,0.9814,0.9793,10,469,61.63,469 / 282 / 10,Acceptable
+B_Ratio,Log1p+StandardScaler,ward,3,0.3794,0.907,329.5933,1.0,1.0,10,431,56.64,320 / 431 / 10,Acceptable
+B_Ratio,Log1p+StandardScaler,kmeans,4,0.3189,1.0393,348.594,0.9581,0.862,10,360,47.31,10 / 360 / 280 / 111,Acceptable
+B_Ratio,Log1p+StandardScaler,ward,4,0.3281,1.1176,294.8369,1.0,1.0,10,431,56.64,246 / 431 / 10 / 74,Acceptable
+B_Ratio,Log1p+StandardScaler,kmeans,5,0.3302,1.0676,324.3265,0.7091,0.6344,10,336,44.15,10 / 336 / 232 / 91 / 92,Acceptable
+B_Ratio,Log1p+StandardScaler,ward,5,0.3284,1.0184,283.1839,1.0,1.0,4,431,56.64,431 / 242 / 10 / 74 / 4,Acceptable
+B_Ratio,Log1p+StandardScaler,kmeans,6,0.3271,1.0426,323.29,0.8903,0.8528,5,340,44.68,340 / 132 / 10 / 86 / 188 / 5,Acceptable
+B_Ratio,Log1p+StandardScaler,ward,6,0.1734,1.1755,272.3495,1.0,1.0,4,242,31.8,242 / 232 / 10 / 74 / 4 / 199,Acceptable
+B_Ratio,Log1p+StandardScaler,kmeans,7,0.2493,1.0397,316.7739,0.9508,0.9341,4,223,29.3,223 / 80 / 105 / 10 / 160 / 179 / 4,Acceptable
+B_Ratio,Log1p+StandardScaler,ward,7,0.1989,1.2536,272.6056,1.0,1.0,4,232,30.49,92 / 232 / 150 / 74 / 4 / 199 / 10,Acceptable
+B_Ratio,Log1p+StandardScaler,kmeans,8,0.2424,1.0866,301.0942,0.8038,0.4506,5,185,24.31,185 / 97 / 74 / 10 / 162 / 94 / 5 / 134,Acceptable
+B_Ratio,Log1p+StandardScaler,ward,8,0.209,1.1891,261.5276,1.0,1.0,4,232,30.49,232 / 68 / 150 / 74 / 4 / 199 / 10 / 24,Acceptable
+B_Ratio,Log1p+StandardScaler,gmm,2,0.4822,1.7401,81.6421,1.0,1.0,40,721,94.74,40 / 721,Imbalanced
+B_Ratio,Log1p+StandardScaler,gmm,3,0.3333,1.5277,231.5946,0.8704,0.6761,34,453,59.53,453 / 34 / 274,Acceptable
+B_Ratio,Log1p+StandardScaler,gmm,4,0.2873,1.8924,184.3753,0.6303,0.5755,22,403,52.96,76 / 260 / 22 / 403,Acceptable
+B_Ratio,Log1p+StandardScaler,gmm,5,0.2803,1.7533,185.6383,0.9835,0.9563,13,406,53.35,86 / 14 / 406 / 13 / 242,Acceptable
+C_Hybrid,Log1p+StandardScaler,kmeans,2,0.4039,1.0362,412.3193,1.0,1.0,266,495,65.05,495 / 266,Acceptable
+C_Hybrid,Log1p+StandardScaler,ward,2,0.3146,1.1966,306.2947,1.0,1.0,339,422,55.45,339 / 422,Acceptable
+C_Hybrid,Log1p+StandardScaler,kmeans,3,0.4272,0.8188,386.5126,1.0,1.0,10,483,63.47,10 / 268 / 483,Acceptable
+C_Hybrid,Log1p+StandardScaler,ward,3,0.3222,1.0371,299.6758,1.0,1.0,18,422,55.45,422 / 18 / 321,Acceptable
+C_Hybrid,Log1p+StandardScaler,kmeans,4,0.3108,0.9846,368.3305,0.9982,0.9954,10,310,40.74,310 / 143 / 298 / 10,Acceptable
+C_Hybrid,Log1p+StandardScaler,ward,4,0.2819,1.1503,314.7973,1.0,1.0,18,321,42.18,18 / 295 / 321 / 127,Acceptable
+C_Hybrid,Log1p+StandardScaler,kmeans,5,0.3224,0.9606,375.2376,0.9913,0.9876,10,307,40.34,141 / 290 / 13 / 10 / 307,Acceptable
+C_Hybrid,Log1p+StandardScaler,ward,5,0.2879,1.0022,318.8329,1.0,1.0,5,321,42.18,295 / 127 / 321 / 13 / 5,Acceptable
+C_Hybrid,Log1p+StandardScaler,kmeans,6,0.3259,0.9662,367.4504,0.9806,0.9772,10,287,37.71,10 / 15 / 202 / 287 / 127 / 120,Acceptable
+C_Hybrid,Log1p+StandardScaler,ward,6,0.2601,1.0931,299.9841,1.0,1.0,5,321,42.18,127 / 180 / 321 / 13 / 5 / 115,Acceptable
+C_Hybrid,Log1p+StandardScaler,kmeans,7,0.2777,0.9597,364.6658,0.8497,0.83,5,212,27.86,207 / 86 / 130 / 10 / 212 / 111 / 5,Acceptable
+C_Hybrid,Log1p+StandardScaler,ward,7,0.2711,1.0747,289.7953,1.0,1.0,5,321,42.18,180 / 13 / 321 / 100 / 5 / 115 / 27,Acceptable
+C_Hybrid,Log1p+StandardScaler,kmeans,8,0.2874,0.9377,356.5649,0.9186,0.8563,3,215,28.25,215 / 141 / 80 / 104 / 10 / 188 / 3 / 20,Acceptable
+C_Hybrid,Log1p+StandardScaler,ward,8,0.2688,1.0295,282.6279,1.0,1.0,5,321,42.18,321 / 13 / 160 / 100 / 5 / 115 / 27 / 20,Acceptable
+C_Hybrid,Log1p+StandardScaler,gmm,2,0.4789,1.6748,144.9113,0.3832,0.3832,80,681,89.49,681 / 80,Imbalanced
+C_Hybrid,Log1p+StandardScaler,gmm,3,0.3116,1.425,224.6644,0.8101,0.5382,35,456,59.92,35 / 270 / 456,Acceptable
+C_Hybrid,Log1p+StandardScaler,gmm,4,0.145,1.5372,190.1439,0.8324,0.4183,33,288,37.84,169 / 288 / 271 / 33,Acceptable
+C_Hybrid,Log1p+StandardScaler,gmm,5,0.1539,1.3648,209.2933,0.8255,0.499,10,284,37.32,168 / 275 / 24 / 10 / 284,Acceptable
+D_Robust,Log1p+RobustScaler,kmeans,2,0.9383,0.3091,2200.3029,1.0,1.0,10,751,98.69,10 / 751,Imbalanced
+D_Robust,Log1p+RobustScaler,ward,2,0.9383,0.3091,2200.3029,1.0,1.0,10,751,98.69,10 / 751,Imbalanced
+D_Robust,Log1p+RobustScaler,kmeans,3,0.9123,0.3876,1526.4279,0.9811,0.9503,5,750,98.55,750 / 5 / 6,Imbalanced
+D_Robust,Log1p+RobustScaler,ward,3,0.9229,0.308,1504.5963,1.0,1.0,4,751,98.69,751 / 6 / 4,Imbalanced
+D_Robust,Log1p+RobustScaler,kmeans,4,0.4621,0.6855,1491.6598,0.9639,0.9139,5,455,59.79,455 / 5 / 294 / 7,Acceptable
+D_Robust,Log1p+RobustScaler,ward,4,0.4117,0.6534,1414.6731,1.0,1.0,4,413,54.27,338 / 413 / 4 / 6,Acceptable
+D_Robust,Log1p+RobustScaler,kmeans,5,0.4723,0.605,1700.5853,0.9791,0.9142,3,453,59.53,453 / 5 / 294 / 6 / 3,Acceptable
+D_Robust,Log1p+RobustScaler,ward,5,0.4143,0.5748,1578.0588,1.0,1.0,3,413,54.27,413 / 6 / 4 / 335 / 3,Acceptable
+D_Robust,Log1p+RobustScaler,kmeans,6,0.4859,0.5701,1874.8413,0.9238,0.9213,3,468,61.5,468 / 6 / 5 / 275 / 3 / 4,Acceptable
+D_Robust,Log1p+RobustScaler,ward,6,0.4334,0.56,1754.664,1.0,1.0,3,409,53.75,409 / 6 / 4 / 335 / 3 / 4,Acceptable
+D_Robust,Log1p+RobustScaler,kmeans,7,0.4688,0.5936,2136.366,0.9984,0.9974,3,351,46.12,307 / 6 / 5 / 4 / 85 / 3 / 351,Acceptable
+D_Robust,Log1p+RobustScaler,ward,7,0.4597,0.6044,2086.5875,1.0,1.0,3,335,44.02,88 / 6 / 321 / 335 / 3 / 4 / 4,Acceptable
+D_Robust,Log1p+RobustScaler,kmeans,8,0.4673,0.6764,2080.1512,0.503,0.3769,3,346,45.47,77 / 6 / 346 / 303 / 4 / 3 / 4 / 18,Acceptable
+D_Robust,Log1p+RobustScaler,ward,8,0.4612,0.6784,2058.6373,1.0,1.0,3,335,44.02,6 / 335 / 321 / 19 / 3 / 4 / 4 / 69,Acceptable

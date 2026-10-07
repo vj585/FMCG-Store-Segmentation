@@ -149,7 +149,7 @@ STORE00535,1,Cluster 1: High Volume
 STORE00537,2,Cluster 2: Low Volume
 STORE00538,2,Cluster 2: Low Volume
 STORE00542,2,Cluster 2: Low Volume
-STORE00558,0,Cluster 0: Medium Volume
+STORE00558,0,Cluster 0: Intermittent / High Volatility
 STORE00560,1,Cluster 1: High Volume
 STORE00562,2,Cluster 2: Low Volume
 STORE00573,1,Cluster 1: High Volume
@@ -193,7 +193,7 @@ STORE00704,1,Cluster 1: High Volume
 STORE00708,1,Cluster 1: High Volume
 STORE00713,1,Cluster 1: High Volume
 STORE00714,1,Cluster 1: High Volume
-STORE00717,0,Cluster 0: Medium Volume
+STORE00717,0,Cluster 0: Intermittent / High Volatility
 STORE00722,2,Cluster 2: Low Volume
 STORE00724,2,Cluster 2: Low Volume
 STORE00725,1,Cluster 1: High Volume
@@ -228,8 +228,8 @@ STORE00839,1,Cluster 1: High Volume
 STORE00840,1,Cluster 1: High Volume
 STORE00843,2,Cluster 2: Low Volume
 STORE00844,1,Cluster 1: High Volume
-STORE00847,0,Cluster 0: Medium Volume
-STORE00853,0,Cluster 0: Medium Volume
+STORE00847,0,Cluster 0: Intermittent / High Volatility
+STORE00853,0,Cluster 0: Intermittent / High Volatility
 STORE00861,2,Cluster 2: Low Volume
 STORE00868,2,Cluster 2: Low Volume
 STORE00871,1,Cluster 1: High Volume
@@ -284,7 +284,7 @@ STORE01051,1,Cluster 1: High Volume
 STORE01054,2,Cluster 2: Low Volume
 STORE01056,1,Cluster 1: High Volume
 STORE01061,1,Cluster 1: High Volume
-STORE01062,0,Cluster 0: Medium Volume
+STORE01062,0,Cluster 0: Intermittent / High Volatility
 STORE01064,1,Cluster 1: High Volume
 STORE01066,1,Cluster 1: High Volume
 STORE01069,2,Cluster 2: Low Volume
@@ -474,7 +474,7 @@ STORE01756,1,Cluster 1: High Volume
 STORE01758,1,Cluster 1: High Volume
 STORE01759,2,Cluster 2: Low Volume
 STORE01764,2,Cluster 2: Low Volume
-STORE01768,0,Cluster 0: Medium Volume
+STORE01768,0,Cluster 0: Intermittent / High Volatility
 STORE01769,2,Cluster 2: Low Volume
 STORE01774,2,Cluster 2: Low Volume
 STORE01778,2,Cluster 2: Low Volume
@@ -492,7 +492,7 @@ STORE01812,1,Cluster 1: High Volume
 STORE01813,1,Cluster 1: High Volume
 STORE01815,2,Cluster 2: Low Volume
 STORE01819,1,Cluster 1: High Volume
-STORE01824,0,Cluster 0: Medium Volume
+STORE01824,0,Cluster 0: Intermittent / High Volatility
 STORE01827,1,Cluster 1: High Volume
 STORE01832,2,Cluster 2: Low Volume
 STORE01847,1,Cluster 1: High Volume
@@ -549,9 +549,9 @@ STORE02076,2,Cluster 2: Low Volume
 STORE02085,1,Cluster 1: High Volume
 STORE02091,2,Cluster 2: Low Volume
 STORE02104,1,Cluster 1: High Volume
-STORE02109,0,Cluster 0: Medium Volume
+STORE02109,0,Cluster 0: Intermittent / High Volatility
 STORE02113,2,Cluster 2: Low Volume
-STORE02121,0,Cluster 0: Medium Volume
+STORE02121,0,Cluster 0: Intermittent / High Volatility
 STORE02126,2,Cluster 2: Low Volume
 STORE02128,2,Cluster 2: Low Volume
 STORE02130,2,Cluster 2: Low Volume
@@ -701,7 +701,7 @@ STORE02694,1,Cluster 1: High Volume
 STORE02696,1,Cluster 1: High Volume
 STORE02697,1,Cluster 1: High Volume
 STORE02701,1,Cluster 1: High Volume
-STORE02703,0,Cluster 0: Medium Volume
+STORE02703,0,Cluster 0: Intermittent / High Volatility
 STORE02705,1,Cluster 1: High Volume
 STORE02710,1,Cluster 1: High Volume
 STORE02719,2,Cluster 2: Low Volume

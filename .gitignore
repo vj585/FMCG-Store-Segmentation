@@ -21,12 +21,14 @@ venv.bak/
 .pytest_cache/
 .ipynb_checkpoints/
 
-# Datasets (Ignoring raw files per prompt rules to prevent pushing 31M rows)
+# Datasets (raw files excluded to prevent pushing 31M-row CSVs)
 data/raw/
+data/transactions_*.csv
 *.parquet
 *.csv
 !reports/*.csv
 !outputs/*.csv
+!experiments/outputs/*.csv
 
 # OS generated files
 .DS_Store
@@ -34,3 +36,6 @@ data/raw/
 # IDEs
 .vscode/
 .idea/
+
+# Empty directories
+notebooks/

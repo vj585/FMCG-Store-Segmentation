@@ -94,15 +94,15 @@ The k=3 solution was explicitly preferred because it provided:
 ## Segment Profiles
 The segmentation yielded the following profiles based on the store data:
 
-- **Cluster 0 (Medium Volume):** 10 Stores (1.31%) — Stores exhibiting average, balanced characteristics.
-- **Cluster 1 (High Volume):** 424 Stores (55.72%) — Stores demonstrating high overall sales and a broad category mix.
-- **Cluster 2 (Low Volume):** 327 Stores (42.97%) — Stores with low overall sales and highly volatile demand patterns.
+- **Cluster 0 (Intermittent / High Volatility):** 10 Stores (1.31%) — Stores with significantly fewer active weeks (~87 vs 116 average) and extremely high spend volatility (Spend CV ~0.61 vs 0.26 average). Total revenue is near the overall mean. These stores exhibit intermittent activity and unusually high volatility and may warrant investigation into operational or seasonal factors.
+- **Cluster 1 (High Volume):** 424 Stores (55.72%) — Stores demonstrating high overall sales, a broad product mix, and high transaction and customer activity across a consistent ~117 active weeks.
+- **Cluster 2 (Low Volume):** 327 Stores (42.97%) — Stores with low overall sales, below-average transaction volume, and lower product variety, operating consistently across ~117 active weeks.
 
 ## Business Recommendations
 The segments naturally align with specific operational strategies:
 
-### Cluster 0: Medium Volume
-- **Recommendation:** Marketing: Maintain standard promotions. Assortment: Keep balanced core product mix. Inventory: Standard cyclic replenishment. Opportunity: Steady incremental growth.
+### Cluster 0: Intermittent / High Volatility
+- **Recommendation:** Dedicated investigation recommended before applying standard strategies. These stores exhibit intermittent activity and unusually high spend volatility and may warrant investigation into operational or seasonal factors. Inventory: Maintain minimal baseline stock. Avoid standard promotional cycles until root cause is understood.
 
 ### Cluster 1: High Volume
 - **Recommendation:** Marketing: Prioritize for premium product launches and dedicated promotions. Assortment: Maximize breadth. Inventory: High priority allocation. Opportunity: Key revenue driver.
@@ -134,6 +134,10 @@ This project extends beyond standard academic clustering by implementing:
 - Distance-to-centroid structural outlier detection
 - Automated, business-oriented segment recommendations
 - An interactive Business Intelligence dashboard
+- A controlled model validation study of 68 experiments
+
+## Model Validation Study
+Model validation included 68 controlled experiments across four feature representations (baseline, ratio-normalised, hybrid behavioral, and robust-scaled), three clustering algorithms (K-Means, Ward, GMM), and k=2–8. Alternative solutions were evaluated using separation, stability, cluster balance, and business interpretability. The original K-Means k=3 solution was retained because no alternative improved all primary criteria simultaneously. The 10-store intermittent/high-volatility segment persisted across all feature variants, supporting its structural validity.
 
 ## Project Structure
 ```text
