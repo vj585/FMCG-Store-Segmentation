@@ -3,4 +3,4 @@ Sales Scale,"SPEND_sum_sum, SPEND_sum_mean, QUANTITY_sum_sum"
 Sales Volatility,"SPEND_sum_std, SPEND_cv"
 Customer/Transaction Behavior,"TXN_count_sum, BASKET_nunique_sum, CUST_nunique_sum"
 Category/Product Mix,PROD_nunique_sum
-Seasonality/Consistency,WEEK_nunique_sum
+Coverage/Consistency,WEEK_nunique_sum

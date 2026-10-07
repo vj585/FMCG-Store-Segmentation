@@ -39,7 +39,7 @@ The core objective is to identify meaningful groups of stores based on behaviora
 This segmentation elevates operations from mathematical clustering to an actionable business strategy framework.
 
 ## Data & Pipeline
-Raw transaction rows were **not** directly clustered. Clustering billions of rows introduces computational bloat and noise. Instead, the pipeline was structured as follows:
+Raw transaction rows were **not** directly clustered. Aggregated approximately 31 million transaction rows into store-level behavioral features to prevent computational bloat and noise. The pipeline was structured as follows:
 
 1. Raw transaction data
 2. Data-quality checks & cleansing
@@ -59,7 +59,7 @@ Features were engineered at the store level to capture multidimensional behavior
 - **Transaction Activity:** Transaction Volume
 - **Product/Category Mix:** Product Variety (Unique Products)
 - **Customer/Basket Behavior:** Unique Customers, Average Basket Size
-- **Seasonality/Consistency:** Active Weeks
+- **Coverage/Consistency:** Active Weeks
 
 *(Note: Store identifiers and highly correlated redundant features were systematically excluded from the clustering feature space.)*
 
@@ -94,7 +94,7 @@ The k=3 solution was explicitly preferred because it provided:
 ## Segment Profiles
 The segmentation yielded the following profiles based on the store data:
 
-- **Cluster 0 (Intermittent / High Volatility):** 10 Stores (1.31%) — Stores with significantly fewer active weeks (~87 vs 116 average) and extremely high spend volatility (Spend CV ~0.61 vs 0.26 average). Total revenue is near the overall mean. These stores exhibit intermittent activity and unusually high volatility and may warrant investigation into operational or seasonal factors.
+- **Cluster 0 (Intermittent / High Volatility):** 10 Stores (1.31%) — Stores with intermittent observed activity and unusually high spend volatility. These stores warrant investigation into operational or data-coverage factors before applying standard promotional or replenishment strategies.
 - **Cluster 1 (High Volume):** 424 Stores (55.72%) — Stores demonstrating high overall sales, a broad product mix, and high transaction and customer activity across a consistent ~117 active weeks.
 - **Cluster 2 (Low Volume):** 327 Stores (42.97%) — Stores with low overall sales, below-average transaction volume, and lower product variety, operating consistently across ~117 active weeks.
 
@@ -102,7 +102,7 @@ The segmentation yielded the following profiles based on the store data:
 The segments naturally align with specific operational strategies:
 
 ### Cluster 0: Intermittent / High Volatility
-- **Recommendation:** Dedicated investigation recommended before applying standard strategies. These stores exhibit intermittent activity and unusually high spend volatility and may warrant investigation into operational or seasonal factors. Inventory: Maintain minimal baseline stock. Avoid standard promotional cycles until root cause is understood.
+- **Recommendation:** These stores warrant investigation into operational or data-coverage factors before applying standard promotional or replenishment strategies.
 
 ### Cluster 1: High Volume
 - **Recommendation:** Marketing: Prioritize for premium product launches and dedicated promotions. Assortment: Maximize breadth. Inventory: High priority allocation. Opportunity: Key revenue driver.
@@ -137,7 +137,7 @@ This project extends beyond standard academic clustering by implementing:
 - A controlled model validation study of 68 experiments
 
 ## Model Validation Study
-Model validation included 68 controlled experiments across four feature representations (baseline, ratio-normalised, hybrid behavioral, and robust-scaled), three clustering algorithms (K-Means, Ward, GMM), and k=2–8. Alternative solutions were evaluated using separation, stability, cluster balance, and business interpretability. The original K-Means k=3 solution was retained because no alternative improved all primary criteria simultaneously. The 10-store intermittent/high-volatility segment persisted across all feature variants, supporting its structural validity.
+Model validation included 68 controlled experiments using K-Means and Ward across k=2–8, plus GMM experiments for selected feature variants and k values. Alternative solutions were evaluated using separation, stability, cluster balance, and business interpretability. The original K-Means k=3 solution was retained because no alternative improved all primary criteria simultaneously. The 10-store intermittent/high-volatility segment persisted across all feature variants, supporting its structural validity.
 
 ## Project Structure
 ```text
@@ -164,6 +164,7 @@ Assessment-2-Store-Segmentation/
 │   ├── segment_recommendations.csv
 │   └── store_segments.csv
 ├── reports/
+│   ├── cleaning_report.md
 │   ├── FINAL_REPORT.md
 │   ├── cluster_stability.csv
 │   ├── feature_groups.csv
@@ -204,6 +205,7 @@ python app.py
 - **`app.py`:** The Dash application that consumes the static CSV outputs generated by the pipeline to serve the interactive UI.
 
 ## Limitations
+- **Data Variables:** The available transaction data supported sales, activity, volatility and product-diversity features. Promotion, pricing, distribution and stockout variables were not available in the retained analytical data, so those dimensions were not directly modeled.
 - **Descriptive, not Causal:** Clustering maps observed behavioral patterns. It does not establish causal truth.
 - **Feature Dependency:** Segment profiles are heavily dependent on the chosen historical features.
 - **Atypical Stores:** Outlier stores must be investigated manually before taking strict business action.

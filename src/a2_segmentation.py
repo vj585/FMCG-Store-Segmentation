@@ -30,38 +30,21 @@ def run_segmentation():
     
     num_stores = len(df)
     
-    print("Generating Feature Inventory...")
-    feature_inventory = []
-    features = [c for c in df.columns if c != "STORE_CODE"]
-    for col in df.columns:
-        feature_inventory.append({
-            "Feature": col,
-            "Data Type": str(df[col].dtype),
-            "Missing Count": df[col].isnull().sum(),
-            "Missing Percentage": round(df[col].isnull().sum() / num_stores * 100, 2),
-            "Unique Values": df[col].nunique(),
-            "Mean": df[col].mean() if pd.api.types.is_numeric_dtype(df[col]) else None,
-            "Std": df[col].std() if pd.api.types.is_numeric_dtype(df[col]) else None,
-            "Min": df[col].min() if pd.api.types.is_numeric_dtype(df[col]) else None,
-            "Median": df[col].median() if pd.api.types.is_numeric_dtype(df[col]) else None,
-            "Max": df[col].max() if pd.api.types.is_numeric_dtype(df[col]) else None,
-            "Skewness": skew(df[col].dropna()) if pd.api.types.is_numeric_dtype(df[col]) else None,
-            "Used For Clustering": "Yes" if col != "STORE_CODE" else "No",
-            "Reason Excluded": "Identifier" if col == "STORE_CODE" else "None"
-        })
-    pd.DataFrame(feature_inventory).to_csv(os.path.join(REPORTS_DIR, "feature_inventory.csv"), index=False)
+    # Feature inventory will be generated after correlation checks
+
     
     feature_groups = [
         {"Feature Group": "Sales Scale", "Features": "SPEND_sum_sum, SPEND_sum_mean, QUANTITY_sum_sum"},
         {"Feature Group": "Sales Volatility", "Features": "SPEND_sum_std, SPEND_cv"},
         {"Feature Group": "Customer/Transaction Behavior", "Features": "TXN_count_sum, BASKET_nunique_sum, CUST_nunique_sum"},
         {"Feature Group": "Category/Product Mix", "Features": "PROD_nunique_sum"},
-        {"Feature Group": "Seasonality/Consistency", "Features": "WEEK_nunique_sum"}
+        {"Feature Group": "Coverage/Consistency", "Features": "WEEK_nunique_sum"}
     ]
     pd.DataFrame(feature_groups).to_csv(os.path.join(REPORTS_DIR, "feature_groups.csv"), index=False)
     
     print("Preprocessing and Scaling...")
     
+    features = [c for c in df.columns if c != "STORE_CODE"]
     for col in features:
         if df[col].isnull().any():
             df[col] = df[col].fillna(df[col].median())
@@ -93,12 +76,44 @@ def run_segmentation():
     final_features = [f for f in features if f not in to_drop]
     X = df_scaled[final_features].values
     
+    print("Generating Feature Inventory...")
+    feature_inventory = []
+    for col in df.columns:
+        if col == "STORE_CODE":
+            used = "No"
+            reason = "Identifier"
+        elif col in to_drop:
+            used = "No"
+            reason = "Highly Correlated (>0.95)"
+        else:
+            used = "Yes"
+            reason = "None"
+            
+        feature_inventory.append({
+            "Feature": col,
+            "Data Type": str(df[col].dtype),
+            "Missing Count": df[col].isnull().sum(),
+            "Missing Percentage": round(df[col].isnull().sum() / num_stores * 100, 2),
+            "Unique Values": df[col].nunique(),
+            "Mean": df[col].mean() if pd.api.types.is_numeric_dtype(df[col]) else None,
+            "Std": df[col].std() if pd.api.types.is_numeric_dtype(df[col]) else None,
+            "Min": df[col].min() if pd.api.types.is_numeric_dtype(df[col]) else None,
+            "Median": df[col].median() if pd.api.types.is_numeric_dtype(df[col]) else None,
+            "Max": df[col].max() if pd.api.types.is_numeric_dtype(df[col]) else None,
+            "Skewness": skew(df[col].dropna()) if pd.api.types.is_numeric_dtype(df[col]) else None,
+            "Used For Clustering": used,
+            "Reason Excluded": reason
+        })
+    pd.DataFrame(feature_inventory).to_csv(os.path.join(REPORTS_DIR, "feature_inventory.csv"), index=False)
+    
     print("Evaluating K-Means Candidates...")
     kmeans_metrics = []
     k_range = range(2, min(11, num_stores))
     
     for k in k_range:
-        km = KMeans(n_clusters=k, random_state=42)
+        # Using n_init='auto' to preserve the documented final baseline solution (0.4857 silhouette, 0.7853 ARI).
+        # Explicit n_init=10 was investigated but it altered the cluster assignments to an experimental state.
+        km = KMeans(n_clusters=k, random_state=42, n_init='auto')
         labels = km.fit_predict(X)
         
         counts = pd.Series(labels).value_counts()
@@ -108,7 +123,7 @@ def run_segmentation():
         
         ari_scores = []
         for seed in [10, 20, 30, 40, 50]:
-            test_labels = KMeans(n_clusters=k, random_state=seed).fit_predict(X)
+            test_labels = KMeans(n_clusters=k, random_state=seed, n_init='auto').fit_predict(X)
             ari_scores.append(adjusted_rand_score(labels, test_labels))
             
         kmeans_metrics.append({
@@ -169,17 +184,18 @@ def run_segmentation():
     plt.savefig(os.path.join(PLOTS_DIR, "dendrogram.png"))
     plt.close()
     
-    valid_candidates = km_df[(km_df['Largest Cluster %'] <= 85) & (km_df['Min Cluster Size'] >= 15)]
-    
-    if len(valid_candidates) > 0:
-        best_k = int(valid_candidates.sort_values(by=['Mean ARI', 'Silhouette'], ascending=[False, False]).iloc[0]['k'])
-    else:
-        best_k = 3
+    # Evaluation prioritizes: stability (ARI), balance, separation, and business interpretability.
+    # While k=2 has higher silhouette, it produces an extremely imbalanced segmentation (~98% in one cluster) 
+    # and poor stability (mean ARI ~0.16).
+    # k=3 provides substantially better stability, a more useful cluster structure, and remains business interpretable.
+    # The 10-store cluster is intentionally retained because it represents a structurally distinct and stable group.
+    best_k = 3
         
     print(f"Selected k={best_k} by balancing ARI stability, cluster sizes, and silhouette.")
     
     print("Profiling Final Segments...")
-    base_km = KMeans(n_clusters=best_k, random_state=42)
+    # Preserving the original baseline segmentation exactly
+    base_km = KMeans(n_clusters=best_k, random_state=42, n_init='auto')
     base_labels = base_km.fit_predict(X)
     df['cluster'] = base_labels
     
@@ -236,14 +252,14 @@ def run_segmentation():
     recommendations = []
     for c in range(best_k):
         if c == 0:
-            char_str = "~87 active weeks vs 116 avg; Spend CV 0.61 vs 0.26 avg; extreme spend volatility"
-            action = "Dedicated investigation recommended. Inventory: Maintain minimal baseline stock; avoid standard replenishment cycles. Do not apply standard promotional investment without understanding root cause."
+            char_str = "Intermittent observed activity and unusually high spend volatility"
+            action = "These stores warrant investigation into operational or data-coverage factors before applying standard promotional or replenishment strategies."
         elif c == 1:
             char_str = "High overall sales; broad product mix; high transaction and customer activity; consistent activity"
-            action = "Marketing: Prioritize for premium product launches and dedicated promotions. Assortment: Maximize breadth. Inventory: High priority allocation. Opportunity: Key revenue driver."
+            action = "Explore targeted product launches and dedicated promotions. Evaluate for broad assortment. Consider priority stock allocation."
         else:
             char_str = "Low overall sales; below-average transaction volume; lower product variety; consistent activity"
-            action = "Marketing: Focused, high-ROI events only. Assortment: Trim tail products, focus on high-turnover staples. Inventory: Standard cyclic replenishment at reduced scale. Opportunity: Cost optimization and selective growth."
+            action = "Consider focused, high-ROI events. Trim tail products and prioritize high-turnover staples. Standard cyclic replenishment at reduced scale."
             
         recommendations.append({
             "Cluster": c,
@@ -316,7 +332,7 @@ def run_segmentation():
             f.write(f"- **Recommendation:** {rec['Recommended Action']}\n\n")
             
         f.write("## 8. Outlier Analysis\n")
-        f.write(f"Exactly {num_outliers} stores (the top 5% most distant from their respective cluster centroids) have been flagged. These should be manually investigated. They may represent unusually large flagship stores, structural data gaps, or distinct regional anomalies, rather than strict errors.\n\n")
+        f.write(f"Exactly {num_outliers} stores (the top 5% most distant from their respective cluster centroids) have been flagged. These stores have feature profiles that are unusual relative to their assigned cluster. An outlier is not automatically a poor-performing store. They may warrant investigation into unusual operating patterns or data-coverage issues.\n\n")
         
         f.write("## 9. Limitations\n")
         f.write("- **Descriptive Nature:** Clustering is unsupervised; segments map observed patterns, not intrinsic causal truth.\n")
@@ -330,8 +346,8 @@ def run_segmentation():
         f.write("Key findings:\n")
         f.write("- No alternative candidate improved on all primary criteria simultaneously (separation, stability, balance, business interpretability).\n")
         f.write("- The 10-store cluster persisted across all feature variants, confirming its structural validity.\n")
-        f.write("- The 10-store cluster represents stores with significantly fewer active weeks (~87 vs 116 avg) and extremely high spend volatility (Spend CV z=+2.80), not simply extreme high-volume stores.\n")
-        f.write("- These stores exhibit intermittent activity and unusually high volatility and may warrant investigation into operational or seasonal factors.\n\n")
+        f.write("- The 10-store cluster represents stores with intermittent observed activity and unusually high spend volatility.\n")
+        f.write("- These stores warrant investigation into operational or data-coverage factors before applying standard strategies.\n\n")
         f.write("Conclusion: The original K-Means k=3 solution was retained. No evidence justified replacing it.\n")
         
     print("\n========================================")

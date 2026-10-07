@@ -32,23 +32,23 @@
 ## 6. Cluster Profiles
 | Cluster | Label | Stores | % | Major Characteristics |
 |---------|-------|--------|---|-----------------------|
-| 0.0 | Cluster 0: Intermittent / High Volatility | 10.0 | 1.31% | ~87 active weeks vs 116 avg; Spend CV 0.61 vs 0.26 avg; extreme spend volatility |
+| 0.0 | Cluster 0: Intermittent / High Volatility | 10.0 | 1.31% | Intermittent observed activity and unusually high spend volatility |
 | 1.0 | Cluster 1: High Volume | 424.0 | 55.72% | High overall sales; broad product mix; high transaction and customer activity; consistent activity |
 | 2.0 | Cluster 2: Low Volume | 327.0 | 42.97% | Low overall sales; below-average transaction volume; lower product variety; consistent activity |
 
 
 ## 7. Business Recommendations
 ### Cluster 0: Intermittent / High Volatility
-- **Recommendation:** Dedicated investigation recommended. Inventory: Maintain minimal baseline stock; avoid standard replenishment cycles. Do not apply standard promotional investment without understanding root cause.
+- **Recommendation:** These stores warrant investigation into operational or data-coverage factors before applying standard promotional or replenishment strategies.
 
 ### Cluster 1: High Volume
-- **Recommendation:** Marketing: Prioritize for premium product launches and dedicated promotions. Assortment: Maximize breadth. Inventory: High priority allocation. Opportunity: Key revenue driver.
+- **Recommendation:** Explore targeted product launches and dedicated promotions. Evaluate for broad assortment. Consider priority stock allocation.
 
 ### Cluster 2: Low Volume
-- **Recommendation:** Marketing: Focused, high-ROI events only. Assortment: Trim tail products, focus on high-turnover staples. Inventory: Standard cyclic replenishment at reduced scale. Opportunity: Cost optimization and selective growth.
+- **Recommendation:** Consider focused, high-ROI events. Trim tail products and prioritize high-turnover staples. Standard cyclic replenishment at reduced scale.
 
 ## 8. Outlier Analysis
-Exactly 38 stores (the top 5% most distant from their respective cluster centroids) have been flagged. These should be manually investigated. They may represent unusually large flagship stores, structural data gaps, or distinct regional anomalies, rather than strict errors.
+Exactly 38 stores (the top 5% most distant from their respective cluster centroids) have been flagged. These stores have feature profiles that are unusual relative to their assigned cluster. An outlier is not automatically a poor-performing store. They may warrant investigation into unusual operating patterns or data-coverage issues.
 
 ## 9. Limitations
 - **Descriptive Nature:** Clustering is unsupervised; segments map observed patterns, not intrinsic causal truth.
@@ -64,7 +64,7 @@ A controlled improvement study of 68 experiments was conducted across four featu
 Key findings:
 - No alternative candidate improved on all primary criteria simultaneously (separation, stability, balance, business interpretability).
 - The 10-store cluster persisted across all feature variants, confirming its structural validity.
-- The 10-store cluster represents stores with significantly fewer active weeks (~87 vs 116 avg) and extremely high spend volatility (Spend CV z=+2.80), not simply extreme high-volume stores.
-- These stores exhibit intermittent activity and unusually high volatility and may warrant investigation into operational or seasonal factors.
+- The 10-store cluster represents stores with intermittent observed activity and unusually high spend volatility.
+- These stores warrant investigation into operational or data-coverage factors before applying standard strategies.
 
 Conclusion: The original K-Means k=3 solution was retained. No evidence justified replacing it.

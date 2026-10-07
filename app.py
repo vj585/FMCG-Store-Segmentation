@@ -151,13 +151,13 @@ def layout_overview():
                 dcc.Graph(figure=fig_size, config={'displayModeBar': False})
             ]), className="custom-card mb-4"), lg=4, md=12),
             dbc.Col(dbc.Card(dbc.CardBody([
-                html.H6("STORE SEGMENTS PROJECTION (PCA)", className="text-muted fw-bold mb-3", style={"fontSize": "11px"}),
+                html.H6("STORE SEGMENTS PROJECTION (PCA - For Visualization Only)", className="text-muted fw-bold mb-3", style={"fontSize": "11px"}),
                 dcc.Graph(figure=fig_pca)
             ]), className="custom-card mb-4"), lg=8, md=12),
         ]),
         dbc.Row([
             dbc.Col(dbc.Card(dbc.CardBody([
-                html.H6("STANDARDIZED FEATURE PROFILES BY CLUSTER", className="text-muted fw-bold mb-3", style={"fontSize": "11px"}),
+                html.H6("RELATIVE FEATURE PROFILES BY CLUSTER", className="text-muted fw-bold mb-3", style={"fontSize": "11px"}),
                 dcc.Graph(figure=fig_heatmap)
             ]), className="custom-card mb-4"), width=12),
         ])
@@ -268,7 +268,7 @@ def layout_outliers():
             f"{num_outliers} atypical stores flagged. ",
             "These stores have feature profiles that are unusual relative to their assigned cluster. ",
             html.Strong("An outlier is not automatically a poor-performing store."),
-            " They often represent unusually large flagship stores, structural data gaps, or distinct regional anomalies."
+            " They may warrant investigation into unusual operating patterns or data-coverage issues."
         ], color="info", className="custom-card border-0 mb-4", style={"backgroundColor": "#E8F4F8", "color": "#042940"}),
         
         dbc.Row([
@@ -321,19 +321,19 @@ def layout_methodology():
             dbc.Col([
                 dbc.Card(dbc.CardBody([
                     html.H5("Why K-Means k=3?", className="fw-bold mb-3"),
-                    html.P("The earlier k=2 solution was rejected because it had a higher Silhouette score, approximately 98% of stores fell into one cluster, stability was poor, and mean ARI was approximately 0.16.", className="text-secondary mb-3"),
+                    html.P("The earlier k=2 solution was rejected because, although it had a higher Silhouette score, it was severely imbalanced (approximately 98% of stores fell into one cluster), stability was poor, and mean ARI was approximately 0.16.", className="text-secondary mb-3"),
                     html.P("The final k=3 solution was explicitly preferred because it provides:", className="text-secondary mb-2"),
                     html.Ul([
                         html.Li("Substantially better stability (Mean ARI = 0.7853)"),
-                        html.Li("More reasonable cluster balance (Largest cluster = 55.72%)"),
-                        html.Li("Actionable business interpretability"),
+                        html.Li("A more useful cluster structure"),
+                        html.Li("Business interpretability"),
                         html.Li("Acceptable clustering mathematical quality")
                     ], className="text-secondary mb-4"),
                     html.H6("LIMITATIONS", className="text-muted fw-bold mb-2", style={"fontSize": "11px"}),
                     html.P("Clustering is descriptive, not causal. Segments represent observed similarity patterns based on available metrics rather than intrinsic permanent classifications.", className="text-secondary mb-0", style={"fontSize": "12px"})
                 ]), className="custom-card mb-4"),
                 
-                html.H6("MODEL COMPARISON (K-MEANS)", className="text-muted fw-bold mb-3 mt-4", style={"fontSize": "11px"}),
+                html.H6("K-MEANS CANDIDATE DIAGNOSTICS", className="text-muted fw-bold mb-3 mt-4", style={"fontSize": "11px"}),
                 dbc.Card(dbc.CardBody([
                     dash_table.DataTable(
                         columns=diag_cols,
@@ -462,4 +462,5 @@ def display_store_detail(selected_rows, current_data):
     return html.Div(details)
 
 if __name__ == '__main__':
-    app.run(debug=True, host='127.0.0.1', port=8050)
+    app.run(debug=True, host='127.0.0.1', port=8051)
+
