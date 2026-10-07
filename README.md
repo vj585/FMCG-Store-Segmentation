@@ -10,18 +10,19 @@ This project aims to address this problem by employing unsupervised machine lear
 
 ### Overview
 ![FreshBasket Store Intelligence Overview](assets/Screenshots/overview.png)
+![Standardized Feature Profiles](assets/Screenshots/overview-heatmap.png)
 
 ### Store Segment Profiles
-![Store Segment Profiles](assets/Screenshots/segments.png)
+![FreshBasket Store Segment Profiles](assets/Screenshots/segments.png)
 
 ### Store Explorer
-![Store Explorer](assets/Screenshots/store-explorer.png)
+![FreshBasket Store Explorer](assets/Screenshots/store-explorer.png)
 
 ### Outlier Analysis
-![Outlier Analysis](assets/Screenshots/outliers.png)
+![FreshBasket Store Outlier Analysis](assets/Screenshots/outliers.png)
 
 ### Clustering Methodology
-![Clustering Methodology](assets/Screenshots/methodology.png)
+![FreshBasket Clustering Methodology](assets/Screenshots/methodology.png)
 
 ## Executive Summary
 This project processed over 31 million raw transaction records, aggregating them into robust behavioral profiles for **761 retail stores**. Using **K-Means clustering**, the stores were grouped into **3 distinct segments**. The final model prioritizes business interpretability and stability, achieving a **Mean ARI of 0.7853** across random seeds, a **Silhouette score of 0.4857**, and identifying **38 structural outliers**. 
@@ -93,9 +94,9 @@ The k=3 solution was explicitly preferred because it provided:
 ## Segment Profiles
 The segmentation yielded the following profiles based on the store data:
 
-- **Cluster 0 (Medium Volume):** 241 Stores (31.67%) — Stores exhibiting average, balanced characteristics.
-- **Cluster 1 (High Volume):** 96 Stores (12.61%) — Stores demonstrating high overall sales and a broad category mix.
-- **Cluster 2 (Low Volume):** 424 Stores (55.72%) — Stores with low overall sales and highly volatile demand patterns.
+- **Cluster 0 (Medium Volume):** 10 Stores (1.31%) — Stores exhibiting average, balanced characteristics.
+- **Cluster 1 (High Volume):** 424 Stores (55.72%) — Stores demonstrating high overall sales and a broad category mix.
+- **Cluster 2 (Low Volume):** 327 Stores (42.97%) — Stores with low overall sales and highly volatile demand patterns.
 
 ## Business Recommendations
 The segments naturally align with specific operational strategies:
