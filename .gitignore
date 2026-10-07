@@ -3,23 +3,32 @@ __pycache__/
 *.py[cod]
 *$py.class
 *.so
+*.pyc
 
 # Environments
 .env
+.env.*
 .venv
+.venv/
 env/
 venv/
 ENV/
 env.bak/
 venv.bak/
 
+# Logs and Caches
+*.log
+.pytest_cache/
+.ipynb_checkpoints/
+
 # Datasets (Ignoring raw files per prompt rules to prevent pushing 31M rows)
 data/raw/
+*.parquet
 *.csv
 !reports/*.csv
 !outputs/*.csv
 
-# Dash/Plotly
+# OS generated files
 .DS_Store
 
 # IDEs

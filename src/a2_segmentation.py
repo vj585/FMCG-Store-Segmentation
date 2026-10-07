@@ -30,7 +30,6 @@ def run_segmentation():
     
     num_stores = len(df)
     
-    # 2. FEATURE INVENTORY & STATS
     print("Generating Feature Inventory...")
     feature_inventory = []
     features = [c for c in df.columns if c != "STORE_CODE"]
@@ -52,7 +51,6 @@ def run_segmentation():
         })
     pd.DataFrame(feature_inventory).to_csv(os.path.join(REPORTS_DIR, "feature_inventory.csv"), index=False)
     
-    # 3. FEATURE GROUPS
     feature_groups = [
         {"Feature Group": "Sales Scale", "Features": "SPEND_sum_sum, SPEND_sum_mean, QUANTITY_sum_sum"},
         {"Feature Group": "Sales Volatility", "Features": "SPEND_sum_std, SPEND_cv"},
@@ -62,7 +60,6 @@ def run_segmentation():
     ]
     pd.DataFrame(feature_groups).to_csv(os.path.join(REPORTS_DIR, "feature_groups.csv"), index=False)
     
-    # 4. PREPROCESSING & SCALING
     print("Preprocessing and Scaling...")
     
     for col in features:
@@ -79,7 +76,6 @@ def run_segmentation():
     X_scaled = scaler.fit_transform(df_transformed[features])
     df_scaled = pd.DataFrame(X_scaled, columns=features)
     
-    # 6. CORRELATION / REDUNDANCY
     print("Checking Correlations...")
     corr_matrix = df_scaled.corr().abs()
     upper = corr_matrix.where(np.triu(np.ones(corr_matrix.shape), k=1).astype(bool))
@@ -97,7 +93,6 @@ def run_segmentation():
     final_features = [f for f in features if f not in to_drop]
     X = df_scaled[final_features].values
     
-    # 7. K-MEANS & STABILITY
     print("Evaluating K-Means Candidates...")
     kmeans_metrics = []
     k_range = range(2, min(11, num_stores))
@@ -133,11 +128,9 @@ def run_segmentation():
     km_df = pd.DataFrame(kmeans_metrics)
     km_df.to_csv(os.path.join(REPORTS_DIR, "kmeans_metrics.csv"), index=False)
     
-    # Stability overall output
     km_df[['k', 'Mean ARI', 'Min ARI', 'Max ARI']].to_csv(os.path.join(REPORTS_DIR, "cluster_stability.csv"), index=False)
     km_df.to_csv(os.path.join(REPORTS_DIR, "final_candidate_comparison.csv"), index=False)
     
-    # 8. HIERARCHICAL CLUSTERING
     print("Evaluating Hierarchical Clustering...")
     hier_metrics = []
     for k in k_range:
@@ -155,7 +148,6 @@ def run_segmentation():
     hc_df = pd.DataFrame(hier_metrics)
     hc_df.to_csv(os.path.join(REPORTS_DIR, "hierarchical_metrics.csv"), index=False)
     
-    # Plotting Metrics
     fig, axes = plt.subplots(2, 2, figsize=(12, 10))
     axes[0,0].plot(km_df['k'], km_df['Largest Cluster %'], marker='o')
     axes[0,0].axhline(80, color='r', linestyle='--')
@@ -177,20 +169,15 @@ def run_segmentation():
     plt.savefig(os.path.join(PLOTS_DIR, "dendrogram.png"))
     plt.close()
     
-    # 9. MODEL SELECTION HEURISTIC
-    # Reject k if largest cluster > 85% or min cluster < 15
     valid_candidates = km_df[(km_df['Largest Cluster %'] <= 85) & (km_df['Min Cluster Size'] >= 15)]
     
     if len(valid_candidates) > 0:
-        # Sort by stability (Mean ARI) and Silhouette
         best_k = int(valid_candidates.sort_values(by=['Mean ARI', 'Silhouette'], ascending=[False, False]).iloc[0]['k'])
     else:
-        # Fallback if no perfect valid candidate
         best_k = 3
         
     print(f"Selected k={best_k} by balancing ARI stability, cluster sizes, and silhouette.")
     
-    # 11. FINAL SEGMENTATION & 12. PROFILING
     print("Profiling Final Segments...")
     base_km = KMeans(n_clusters=best_k, random_state=42)
     base_labels = base_km.fit_predict(X)
@@ -218,14 +205,12 @@ def run_segmentation():
     profiles = size_df.merge(profiles, on='cluster')
     profiles.to_csv(os.path.join(OUTPUTS_DIR, "cluster_profiles.csv"), index=False)
     
-    # 13. STANDARDIZED PROFILE HEATMAP
     plt.figure(figsize=(10, 6))
     sns.heatmap(z_profiles, annot=True, cmap='coolwarm', center=0)
     plt.title("Standardized Cluster Profile (Z-Scores)")
     plt.savefig(os.path.join(PLOTS_DIR, "cluster_profile_heatmap.png"))
     plt.close()
     
-    # 14. PCA VISUALIZATION
     pca = PCA(n_components=2, random_state=42)
     X_pca = pca.fit_transform(X)
     plt.figure(figsize=(8,6))
@@ -234,7 +219,6 @@ def run_segmentation():
     plt.savefig(os.path.join(PLOTS_DIR, "pca_clusters.png"))
     plt.close()
     
-    # 15. OUTLIERS
     print("Detecting Outliers...")
     centroids = base_km.cluster_centers_
     distances = cdist(X, centroids, 'euclidean')
@@ -247,7 +231,6 @@ def run_segmentation():
     
     df[['STORE_CODE', 'cluster', 'distance_to_centroid', 'outlier_flag']].to_csv(os.path.join(OUTPUTS_DIR, "cluster_outliers.csv"), index=False)
     
-    # 16. BUSINESS INTERPRETATION
     recommendations = []
     for c in range(best_k):
         z = z_profiles.loc[c]
@@ -275,7 +258,6 @@ def run_segmentation():
         })
     pd.DataFrame(recommendations).to_csv(os.path.join(OUTPUTS_DIR, "segment_recommendations.csv"), index=False)
     
-    # 17. FINAL REPORT
     best_stats = km_df[km_df['k'] == best_k].iloc[0]
     is_stable = "Yes" if best_stats['Mean ARI'] > 0.5 else "No"
     
